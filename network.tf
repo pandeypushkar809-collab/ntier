@@ -2,7 +2,7 @@
 
 
 resource "aws_vpc" "base" {
-  cidr_block           = "192.168.0.0/16"
+  cidr_block           = var.vpc_cidr
   enable_dns_hostnames = true
   tags = {
     Name = "from-tf"
@@ -15,8 +15,8 @@ resource "aws_vpc" "base" {
 
 resource "aws_subnet" "web" {
   vpc_id            = aws_vpc.base.id # Implicity dependency
-  availability_zone = "ap-south-1a"
-  cidr_block        = "192.168.1.0/24"
+  availability_zone = var.web_subnet_az
+  cidr_block        = var.web_subnet_cidr
   tags = { Name = "web"
     Env = "dev"
   }
@@ -27,21 +27,22 @@ resource "aws_subnet" "web" {
 
 
 resource "aws_subnet" "app" {
-  vpc_id            = aws_vpc.base.id # Implicity dependency
-  availability_zone = "ap-south-1a"
-  cidr_block        = "192.168.0.0/24"
-  tags = { Name = "app"
-    Env = "dev"
+  vpc_id            = aws_vpc.base.id
+  availability_zone = var.app_subnet_az
+  cidr_block        = var.app_subnet_cidr
+  tags = {
+    Name = "app"
+    Env  = "dev"
   }
-  # explicit dependency
-  depends_on = [aws_vpc.base]
 
+  depends_on = [aws_vpc.base]
 }
+
 
 resource "aws_subnet" "db" {
   vpc_id            = aws_vpc.base.id # Implicity dependency
-  availability_zone = "ap-south-1a"
-  cidr_block        = "192.168.2.0/24"
+  availability_zone = var.db_subnet_az
+  cidr_block        = var.db_subnet_cidr
   tags = { Name = "db"
     Env = "dev"
   }
