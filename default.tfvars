@@ -15,13 +15,13 @@ vpc_info = {
   name                 = "from-tf"
   cidr                 = "10.0.0.0/16"
   enable_dns_hostnames = true
-  tags = {                    # ← YE ADD KARO
+  tags = { # ← YE ADD KARO
     Name = "from-tf"
     Env  = "Dev"
   }
 }
 
-  description          = "web subnet information"
+description = "web subnet information"
 
 
 
@@ -30,7 +30,7 @@ web_subnet_info = {
   cidr = "10.0.1.0/24"
   tags = {
     Name = "Web-subnet"
-    
+
   }
 }
 
@@ -40,7 +40,7 @@ app_subnet_info = {
   cidr = "10.0.2.0/24"
   tags = {
     Name = "app-subnet"
-    
+
   }
 }
 

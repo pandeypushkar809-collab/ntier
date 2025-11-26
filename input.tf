@@ -13,13 +13,32 @@ variable "vpc_info" {
     enable_dns_hostnames = true
     tags = {
       "name" = "from-tf"
-      "Env" = "Dev"
+      "Env"  = "Dev"
       region = "ap-south-1"
     }
   }
 }
 
 #### Web Subnet Variables 
+
+variable "web_subnet_info" {
+  type = object({
+    cidr = string
+    az   = string
+    tags = map(string)
+  })
+  default = {
+    az   = "ap-south-1a"
+    cidr = "192.168.0.0/24"
+    tags = {
+      Name = "Web"
+      Env  = "Dev"
+
+    }
+
+  }
+  description = "web subnet information"
+}
 
 
 
@@ -28,28 +47,7 @@ variable "web_subnet_cidr" {
   description = "web_subnet_cidr"
   default     = "192.168.0.0/24"
 }
-# variable for multiple users 
 
-variable "web_subnet_info" {
-  type = object({
-    cidr = string
-    az   = string
-    tags = map(string)
-
-  })
-  default = {
-    az   = "ap-south-1a"
-    cidr = "192.168.0.0/24"
-    tags = {
-      "name" = "web"
-      Env    = "Dev"
-    }
-
-  }
-
-  description = "web subnet information"
-
-}
 
 
 
